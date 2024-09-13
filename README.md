@@ -7,6 +7,10 @@ API for a reservation system built with FastAPI
 - Python v3.9+
 - MySQL database
 
+## Install SQL Database
+
+In the **database** folder, there is a file called **cowork_db.sql**, you must import the file into your database engine to initialize the database.
+
 ## Create Virtual Environment (venv)
 
 ```$
