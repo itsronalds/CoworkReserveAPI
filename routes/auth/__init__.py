@@ -3,13 +3,37 @@ from sqlalchemy.orm import Session
 from database.deps import get_db
 
 import models.user as user_model
+import models.admin as admin_model
 import schemas.user as user_schema
+import schemas.admin as admin_schema
 import utils.bcrypt as bcrypt_utils
 import utils.logger as logger_utils
 import utils.jwt as jwt_utils
 
 
 router = APIRouter(prefix='/auth', tags=['auth'])
+
+
+@router.post('/admin/login')
+def admin_login(admin: admin_schema.AdminBase, db: Session = Depends(get_db)):
+    admin_by_email = db.query(admin_model.Admin).with_entities(admin_model.Admin.email,
+                                                               admin_model.Admin.password).filter(admin_model.Admin.email == admin.email).first()
+
+    if not admin_by_email:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={'message': 'Admin not found'}
+        )
+
+    if not bcrypt_utils.verify_password(admin.password, admin_by_email.password):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={'message': 'Wrong password'}
+        )
+
+    token = jwt_utils.encode_jwt({'email': admin_by_email.email, 'role': 'admin'})
+
+    return {'token': token}
 
 
 @router.post('/login')
@@ -29,7 +53,7 @@ def login(user: user_schema.UserLogin, db: Session = Depends(get_db)):
                 detail={'message': 'Wrong password'}
             )
 
-        token = jwt_utils.encode_jwt({'email': user_by_email.email})
+        token = jwt_utils.encode_jwt({'email': user_by_email.email, 'role': 'user'})
 
         return {'token': token}
     except Exception as e:
