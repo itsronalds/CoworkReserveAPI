@@ -13,8 +13,8 @@ class UserCreate(UserBase):
         "json_schema_extra": {
             "examples": [
                 {
-                    "name": "Ronald Abu Saleh",
-                    "email": "ronald.test@gmail.com",
+                    "name": "Ryan Williams",
+                    "email": "example@domain.com",
                     "password": "123456789",
                 }
             ]
@@ -30,7 +30,7 @@ class UserLogin(BaseModel):
         "json_schema_extra": {
             "examples": [
                 {
-                    "email": "example@example.com",
+                    "email": "example@domain.com",
                     "password": "123456789",
                 }
             ]
