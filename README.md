@@ -33,7 +33,7 @@ venv\Scripts\Activate
 pip install -r requirements.txt
 ```
 
-## .env File
+## Set Up .env File
 
 Create “.env” file in the root of the project with the following variables:
 
