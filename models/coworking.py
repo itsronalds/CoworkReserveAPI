@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, DECIMAL, String, TIMESTAMP
+from sqlalchemy import Column, Integer, DECIMAL, String, DateTime
 from sqlalchemy.sql import func
 from database.session import Base
 
@@ -12,4 +12,4 @@ class Coworking(Base):
     price_by_hour = Column(DECIMAL(10, 2), nullable=True)
     capacity = Column(Integer, nullable=False)
     is_available = Column(Integer, nullable=False)
-    created_at = Column(TIMESTAMP, default=func.now())
+    created_at = Column(DateTime, default=func.now())
