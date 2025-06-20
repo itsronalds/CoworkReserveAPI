@@ -11,7 +11,6 @@ CoworkReserveAPI is a RESTful API built with **FastAPI** to manage a coworking s
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
 - [Endpoints Structure](#endpoints-structure)
-- [License](#license)
 
 ---
 
